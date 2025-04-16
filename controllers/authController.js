@@ -37,3 +37,4 @@ export async function loginUser(req, res) {
     res.status(500).json({ error: "Error en login: " + err.message });
   }
 }
+console.log("🧪 JWT_SECRET en login:", process.env.JWT_SECRET);
