@@ -9,6 +9,16 @@ const router = express.Router();
 router.post("/auth/register", registerUser);
 router.post("/auth/login", loginUser);
 
+router.get("/auth/me", verifyToken, (req, res) => {
+  const user = req.user;
+  res.json({
+    id: user.id,
+    name: user.name,
+    email: user.email
+  });
+});
+
+
 // Rutas protegidas
 router.get("/usuario/mis-numeros", verifyToken, getMisNumeros);
 router.get("/numeros", getNumeros);
