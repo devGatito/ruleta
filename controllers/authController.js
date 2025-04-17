@@ -38,3 +38,19 @@ export async function loginUser(req, res) {
   }
 }
 console.log("🧪 JWT_SECRET en login:", process.env.JWT_SECRET);
+
+export async function resetPassword(req, res) {
+  const { email, newPassword } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const [result] = await pool.query("UPDATE usuarios SET password = ? WHERE email = ?", [hashedPassword, email]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Correo no encontrado" });
+    }
+
+    res.json({ message: "Contraseña actualizada correctamente" });
+  } catch (err) {
+    res.status(500).json({ error: "Error al actualizar contraseña" });
+  }
+}
