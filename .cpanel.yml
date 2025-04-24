@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export NODE_ENV=production
+    - /opt/alt/alt-nodejs18/root/usr/bin/npm install
+    - echo "✅ Dependencias instaladas"
